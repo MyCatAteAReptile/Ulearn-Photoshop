@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace MyPhotoshop
 {
-    public class Pixel
+    public struct Pixel
     {
         double _r;
         public double R { 
@@ -34,6 +34,7 @@ namespace MyPhotoshop
 
         public Pixel(double R = 0, double G = 0, double B = 0)
         {
+            _r = _g = _b = 0;
             this.R = R;
             this.G = G;
             this.B = B;
@@ -41,8 +42,13 @@ namespace MyPhotoshop
 
         public static Pixel operator* (Pixel p, double d)
         {
-            return new Pixel(p.R * d, p.G * d, p.B * d);
+            return new Pixel(
+                Trim(p.R * d), 
+                Trim(p.G * d), 
+                Trim(p.B * d));
         }
+
+        public static Pixel operator* (double d, Pixel p) => p * d;
 
         public static double Trim(double value)
         {
