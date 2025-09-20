@@ -44,7 +44,14 @@ namespace MyPhotoshop
             return new Pixel(p.R * d, p.G * d, p.B * d);
         }
 
-        private double CheckChannelValue(double value) {
+        public static double Trim(double value)
+        {
+            if (value < 0) return 0;
+            if (value > 1) return 1;
+            return value;
+        }
+
+        double CheckChannelValue(double value) {
             if (value < 0 || value > 1)
                 throw new ArgumentException("Channel value out of range", nameof(value));
             return value;
