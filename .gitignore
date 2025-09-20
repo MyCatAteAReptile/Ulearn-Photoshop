@@ -4,3 +4,6 @@ obj
 TestResults/
 /Tasks.txt
 /.vs/Photoshop
+/Properties
+/app.config
+/Photoshop.csproj.user
