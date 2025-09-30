@@ -2,21 +2,32 @@ using System;
 
 namespace MyPhotoshop
 {
-	public abstract class PixelFilter : ParametrizedFilter
+	public class PixelFilter<TParameters> : ParametrizedFilter<TParameters>
+		where TParameters : IParameters, new()
     {
-        public PixelFilter(IParameters parameters) : base(parameters) { }
+		string _name;
+		Func<Pixel, TParameters,  Pixel> _processor;
 
-        public abstract Pixel ProcessPixel(Pixel pixel, IParameters parameters);
+        public PixelFilter(string name, Func<Pixel, TParameters, Pixel> process)
+        {
+            _name = name;
+            _processor = process;
+        }
 
-        public override Photo Process(Photo original, IParameters parameters)
+        public override Photo Process(Photo original, TParameters parameters)
         {
 			var result=new Photo(original.width, original.height);
 			
 			for (int x=0;x<result.width;x++)
 				for (int y=0;y<result.height;y++)
-                    result[x, y] = ProcessPixel(original[x, y], parameters);
+                    result[x, y] = _processor(original[x, y], parameters);
 			return result;
 		}
-	}
+
+        public override string ToString()
+        {
+            return _name;
+        }
+    }
 }
 
