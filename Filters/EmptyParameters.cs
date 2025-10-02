@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace MyPhotoshop.Filters
+﻿namespace MyPhotoshop
 {
-    public class GrayscaleParameters : IParameters
+    public class EmptyParameters : IParameters
     {
         public ParameterInfo[] GetDesсription()
         {
